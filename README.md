@@ -1,0 +1,2 @@
+# Recipe_Classification
+A proposed big data machine learning model that classifies recipes into healthy or unhealthy categories based on the nutrients from each ingredient in the recipe. Data is extracted from three different data sets - Open Food Facts, Christmas Recipes, General Recipes. The overall data is over 1GB in size. Data engineering and machine learning are done using Spark and Hive on Google Cloud Platform.

@@ -1,0 +1,53 @@
+
+hive -e 'show tables' | xargs -I '{}' hive -e 'drop table {}'
+-----------------------------------------------------------------------------------------      
+CREATE EXTERNAL TABLE open_foods
+      (product_name STRING, energy_100g STRING, fat_100g STRING, saturatedfat_100g STRING, transfat_100g STRING, cholesterol_100g STRING, carbohydrates_100g STRING, sugars_100g STRING, fiber_100g STRING, protiens_100g STRING, salt_100g STRING, sodium_100g STRING, vitamina_100g STRING, vitaminc_100g STRING, calcium_100g STRING, iron_100g STRING)
+ROW FORMAT DELIMITED FIELDS TERMINATED BY ','
+LOCATION 'gs://big_data_vht/openfoodgenkey.csv'
+tblproperties("skip.header.line.count"="1");
+
+LOAD DATA INPATH 'gs://big_data_vht/ofood_gen_openfoodgen.csv' INTO TABLE open_foods;
+show tables;
+----------------------------------------------------------------------------
+      SELECT *
+      FROM open_foods
+      LIMIT 10;
+-----------------------------------------------------------------------------
+create table open_foods2 as 
+SELECT product_name, energy_100g, fat_100g, saturatedfat_100g, transfat_100g,  cholesterol_100g, carbohydrates_100g, sugars_100g, fiber_100g, protiens_100g, salt_100g, sodium_100g, vitamina_100g, vitaminc_100g, calcium_100g, iron_100g,
+CASE WHEN product_name LIKE '%chocolate%' THEN "chocolate"
+WHEN product_name LIKE '%soy%' THEN "soy"
+WHEN product_name LIKE '%sugar%' THEN "sugar"
+WHEN product_name LIKE '%cream%' THEN "cream"
+WHEN product_name LIKE '%cheese%' THEN "cheese"
+WHEN product_name LIKE '%onion%' THEN "onion"
+WHEN product_name LIKE '%tomato%' THEN "tomato"
+WHEN product_name LIKE '%pepper%' THEN "pepper"
+WHEN product_name LIKE '%milk%' THEN "milk"
+WHEN product_name LIKE '%egg%' THEN "egg"
+WHEN product_name LIKE '%garlic%' THEN "garlic"
+WHEN product_name LIKE '%potato%' THEN "potato"
+WHEN product_name LIKE '%chicken%' THEN "chicken"
+WHEN product_name LIKE '%lemon%' THEN "lemon"
+WHEN product_name LIKE '%pork%' THEN "pork"
+WHEN product_name LIKE '%ginger%' THEN "ginger"
+WHEN product_name LIKE '%beef%' THEN "beef"
+WHEN product_name LIKE '%pasta%' THEN "pasta"
+WHEN product_name LIKE '%fish%' THEN "fish"
+WHEN product_name LIKE '%orange%' THEN "orange"
+END AS key1
+FROM open_foods
+sort by key1 ASC;
+
+SELECT product_name FROM open_foods
+WHERE product_name LIKE '%sugar%';
+
+create table openfoods_3 as
+SELECT *
+FROM open_foods2
+WHERE key1 IS NOT NULL
+sort by key1 ASC;
+
+ 
+hive -e 'set hive.cli.print.header=true; select * from openfoods_3' | sed 's/[\t]/,/g'  > gen_opennutrients.csv

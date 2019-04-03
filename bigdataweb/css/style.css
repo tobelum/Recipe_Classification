@@ -1,0 +1,359 @@
+/*
+Though the CSS is hand-coded, the website's design is inspired by DuckDuckGo's search page (https://duckduckgo.com) and Google's 'Material' design language for web, Material Design Lite (https://getmdl.io/index.html). The card layout is taken from the MDL 'Portfolio' template (https://getmdl.io/templates/portfolio/index.html).
+
+Material colors:
+- primary:
+  - 700: #303f9f
+  - 500: #3f51b5
+  - 100: #c5cae9
+- secondary:
+  - A400: #f50057
+  - A200: #ff4081
+  - A100: #ff80ab
+*/
+
+* {
+	box-sizing: border-box;
+}
+
+::-moz-selection {
+	background: #c5cae9;
+	text-shadow: none;
+}
+
+::selection {
+	background: #c5cae9;
+	text-shadow: none;
+}
+
+html,
+body {
+	height: 100%;
+	font-family: 'Helvetica', 'Arial', sans-serif;
+	font-size: 14px;
+	font-weight: 400;
+	line-height: 20px;
+	color: rgba(0, 0, 0, .87);
+	background-color: #cccccc;
+}
+
+/* FLEX SYSTEM */
+
+.flex-center {
+	justify-content: center;
+	align-items: center;
+}
+
+.flex-column {
+	display: flex;
+	flex-direction: column;
+}
+
+.flex-inline {
+	display: inline-flex;
+}
+
+.flex-row {
+	display: flex;
+	flex-direction: row;
+}
+
+.flex-wrap {
+	flex-wrap: wrap;
+}
+
+.expand-vertical {
+	height: 100%;
+}
+
+/* BANNER */
+
+#banner-bkgrd {
+	/* 	A photo by Drew Coffman, available at https://unsplash.com/photos/D1Pa78SnrH0 */
+	background-image: url('https://rawgit.com/tomchkk/fcc-project-images/master/wikipedia-search-engine/angled-books-1920x1080.optmzd.jpg');
+	background-repeat: no-repeat;
+	background-position: center center;
+	background-attachment: fixed;
+	background-size: cover;
+	color: #fff;
+}
+
+.view-results #banner-bkgrd {
+	box-shadow: 0 2px 2px 0 rgba(0, 0, 0, .14), 0 3px 1px -2px rgba(0, 0, 0, .2), 0 1px 5px 0 rgba(0, 0, 0, .12);
+}
+
+#banner-overlay {
+	background-color: rgba(63, 81, 181, 0.85);
+}
+
+#banner-bkgrd,
+#banner-overlay,
+#search-container {
+	position: fixed;
+	height: 75%;
+	width: 100%;
+	transition: height 100ms ease-in;
+}
+
+.view-results #banner-bkgrd,
+.view-results #banner-overlay,
+.view-results #search-container {
+	height: 75px;
+	transition: height 200ms ease-in;
+}
+
+/* SEARCH */
+
+#search-container {
+	padding: 0 5%;
+}
+
+#search-heading h1 {
+	text-align: center;
+	font-family: 'Roboto Slab', serif;
+	font-size: 125%;
+	font-weight: 300;
+	margin-bottom: 25px;
+}
+
+.view-results #search-heading {
+	display: none;
+}
+
+#search-form {
+	background-color: white;
+	padding-left: 5px;
+	width: 100%;
+	border: 1px solid #c5cae9;
+	border-radius: 2px;
+}
+
+#search-input {
+	width: 100%;
+	height: 45px;
+	border: none;
+	color: #333;
+	font-size: 16px;
+}
+
+#search-clear {
+	display: none;
+	margin: 2px;
+	border: none;
+	border-radius: 2px;
+	padding: 0 8px 6px;
+	background-color: transparent;
+	font-size: 175%;
+	font-weight: 100;
+	color: rgba(0, 0, 0, .40);
+}
+
+#search-clear:hover {
+	color: rgba(0, 0, 0, .56);
+}
+
+.hasInput #search-clear {
+	display: block;
+}
+
+.hasInput #search-btn {
+	background-color: #ff4081;
+	color: #fff;
+}
+
+#search-btn,
+.view-results #search-btn {
+	margin: 2px;
+	border: none;
+	border-radius: 2px;
+	padding: 1px 14px 0 10px;
+	background-color: transparent;
+	font-family: FontAwesome;
+	font-weight: bold;
+	color: #7F7F7F;
+}
+
+#search-btn:focus,
+#search-btn:hover {
+	background-color: #f50057;
+	color: #fff;
+}
+
+#search-input:focus,
+#search-clear:focus,
+#search-btn:focus {
+	outline: none;
+}
+
+/* CREDITS */
+
+#credits {
+	position: fixed;
+	width: 100%;
+	padding-right: 3px;
+	text-align: right;
+	color: #c5cae9;
+	font-weight: 300;
+}
+
+#credits a {
+	text-decoration: none;
+	color: #fff;
+}
+
+#credits a:hover {
+	color: #ff4081;
+}
+
+.view-results #credits {
+	display: none;
+}
+
+/* RESULTS */
+
+#results {
+	padding: 75px 0;
+}
+
+.view-initial #results {
+	display: none;
+}
+
+/* CARDS */
+
+#cards {
+	max-width: 1200px;
+	margin: auto;
+	padding: 0 8px;
+}
+
+.card {
+	display: flex;
+	flex-direction: column;
+	overflow: hidden;
+	width: calc(100% - 16px);
+	margin: 8px;
+	border-radius: 2px;
+	box-shadow: rgba(0, 0, 0, 0.137255) 0px 4px 5px 0px, rgba(0, 0, 0, 0.117647) 0px 1px 10px 0px, rgba(0, 0, 0, 0.2) 0px 2px 4px -1px;
+	font-family: 'Roboto', 'Helvetica', 'Arial', sans-serif;
+	font-size: 16px;
+	font-weight: 400;
+	background-color: #fff;
+}
+
+.card-image {
+	border-radius: 2px 2px 0 0;
+	overflow: hidden;
+}
+
+.card-image > img {
+	border-radius: 2px 2px 0 0;
+	width: 100%;
+	height: auto;
+	-o-object-fit: contain;
+	   object-fit: contain;
+	-o-object-fit: cover;
+	   object-fit: cover;
+}
+
+.card-title {
+	display: flex;
+	padding: 16px 16px 0;
+	align-items: center;
+}
+
+.card-title > h2 {
+	display: flex;
+	align-self: flex-end;
+	margin: 0;
+	font-size: 24px;
+	font-weight: 300;
+	line-height: normal;
+}
+
+.card-text {
+	color: rgba(0, 0, 0, .54);
+	font-size: 1rem;
+	line-height: 18px;
+	overflow: hidden;
+	padding: 16px;
+	width: 90%
+}
+
+.card-text p {
+	margin: 0;
+}
+
+.card-actions {
+	border-top: 1px solid rgba(0, 0, 0, .1);
+	font-size: 16px;
+	line-height: normal;
+	width: 100%;
+	background-color: transparent;
+	padding: 8px;
+	margin-top: auto;
+}
+
+.card-actions > a {
+	color: #ff4081;
+	height: 36px;
+	margin: 0;
+	padding: 0 16px;
+	display: inline-block;
+	font-size: 14px;
+	font-weight: 500;
+	letter-spacing: 0;
+	text-decoration: none;
+	text-align: center;
+	line-height: 36px;
+	vertical-align: middle;
+}
+
+.card-actions > a:hover {
+	background-color: rgba(158, 158, 158, .2);
+}
+
+/* MEDIA QUERIES */
+
+@media (min-width: 480px) {
+	#search-heading h1 {
+		font-size: 175%;
+	}
+	.card {
+		width: calc(50% - 16px);
+	}
+}
+
+@media (min-width: 600px) {
+	#search-container {
+		padding-left: 10%;
+		padding-right: 10%;
+	}
+	#search-heading h1 {
+		font-size: 225%;
+	}
+}
+
+@media (min-width: 768px) {
+	#search-container {
+		padding-left: 15%;
+		padding-right: 15%;
+	}
+}
+
+@media (min-width: 992px) {
+	#search-container {
+		padding-left: 20%;
+		padding-right: 20%;
+	}
+	.card {
+		width: calc(33.3333333333% - 16px);
+	}
+}
+
+@media (min-width: 1200px) {
+	#search-container {
+		padding-left: 30%;
+		padding-right: 30%;
+	}
+}
